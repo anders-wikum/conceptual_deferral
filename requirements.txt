@@ -1,0 +1,2 @@
+torchdata==0.7.1
+torch==2.2.0

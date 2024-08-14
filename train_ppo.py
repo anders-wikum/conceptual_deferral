@@ -34,7 +34,8 @@ parser.add_argument(
     type=int
     )
 args = parser.parse_args()
-
+if args.device == -1:
+    args.device = "cpu"
 device = torch.device(args.device)
 base_data_dir = os.path.join(args.data_dir, "er_15_20")
 
@@ -108,8 +109,8 @@ for mode in ["vali", "test"]:
 # construct datasets
 datasets = {
     "train": get_er_15_20_dataset("train"),
-    "vali": get_er_15_20_dataset("vali", "/data/er_15_20/vali"),
-    "test": get_er_15_20_dataset("test", "/data/er_15_20/test")
+    "vali": get_er_15_20_dataset("vali", "./data/er_15_20/vali"),
+    "test": get_er_15_20_dataset("test", "./data/er_15_20/test")
     }
 
 # construct data loaders

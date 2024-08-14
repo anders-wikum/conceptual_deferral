@@ -39,7 +39,7 @@ class MaximumIndependentSetEnv(object):
         self.g = self.g.to(self.device)
         self.g.ndata['h'] = x1.float()
         self.g.update_all(
-            fn.copy_src(src='h', out='m'), 
+            fn.copy_u(u='h', out='m'), 
             fn.sum(msg='m', out='h')
             )
         x1_deg = self.g.ndata.pop('h')

@@ -24,7 +24,7 @@ class ActorCritic(nn.Module):
     def get_masks_idxs_subg_h(self, ob, g):
         # num_nodes x batch_size
         node_mask = (ob.select(2, 0).long() == 2)
-        flatten_node_idxs = node_mask.view(-1).nonzero().squeeze(1)
+        flatten_node_idxs = node_mask.reshape(-1).nonzero().squeeze(1)
         
         # num_subg_nodes
         subg_mask = node_mask.any(dim = 1)
@@ -32,7 +32,7 @@ class ActorCritic(nn.Module):
         
         # num_subg_nodes * batch_size
         subg_node_mask = node_mask.index_select(0, flatten_subg_idxs)
-        flatten_subg_node_idxs = subg_node_mask.view(-1).nonzero().squeeze(1)
+        flatten_subg_node_idxs = subg_node_mask.reshape(-1).nonzero().squeeze(1)
 
         g = g.to(self.device)
         subg = g.subgraph(flatten_subg_idxs)

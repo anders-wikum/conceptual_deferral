@@ -53,7 +53,7 @@ class GraphConv(nn.Module):
             else:
                 graph.ndata['h'] = mask.float()
                 graph.update_all(
-                    fn.copy_src(src='h', out='m'), fn.sum(msg='m', out='h')
+                    fn.copy_u(u='h', out='m'), fn.sum(msg='m', out='h')
                     )
                 masked_deg = graph.ndata.pop('h')
                 norm = torch.pow(masked_deg, -0.5)
@@ -65,7 +65,7 @@ class GraphConv(nn.Module):
         
         graph.ndata['h'] = feat
         graph.update_all(
-            fn.copy_src(src='h', out='m'), fn.sum(msg='m', out='h')
+            fn.copy_u(u='h', out='m'), fn.sum(msg='m', out='h')
             )
         rst = graph.ndata.pop('h')
 
